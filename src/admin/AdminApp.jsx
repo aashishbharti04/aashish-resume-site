@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Inbox, Pencil, LogOut, Trash2, Mail, Plus, Save, Loader2, ArrowLeft, MailOpen, ShieldAlert,
+  Reply, ChevronDown,
 } from "lucide-react";
 import { hasSupabase, supabase } from "../lib/supabase";
 import {
@@ -8,7 +9,7 @@ import {
   signIn, signOut, getSession,
 } from "../lib/data";
 
-const SOCIAL_PLATFORMS = ["github", "linkedin", "x", "instagram", "youtube"];
+const SOCIAL_PLATFORMS = ["whatsapp", "github", "linkedin", "x", "instagram", "youtube"];
 const input =
   "w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-100 outline-none focus:border-fuchsia-400/50 focus:ring-2 focus:ring-fuchsia-400/30";
 const btn =
@@ -150,19 +151,37 @@ function TabBtn({ active, onClick, children }) {
 }
 
 // ---------------- Inbox ----------------
+function replyHref(m) {
+  const subject = "Re: Your message to Aashish Bharti";
+  const quoted = (m.message || "").split("\n").map((l) => "> " + l).join("\n");
+  const body =
+    `Hi ${m.name},\n\nThanks for reaching out — here's my reply:\n\n\n\n` +
+    `—— On ${new Date(m.created_at).toLocaleString()} you wrote ——\n${quoted}`;
+  return `mailto:${m.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 function InboxPanel() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openId, setOpenId] = useState(null);
 
   const refresh = () => listMessages().then(setMessages).finally(() => setLoading(false));
   useEffect(() => { refresh(); }, []);
 
+  async function open(m) {
+    setOpenId((id) => (id === m.id ? null : m.id));
+    if (!m.read) {
+      await setMessageRead(m.id, true);
+      refresh();
+    }
+  }
   async function toggleRead(m) {
     await setMessageRead(m.id, !m.read);
     refresh();
   }
   async function remove(id) {
     await deleteMessage(id);
+    if (openId === id) setOpenId(null);
     refresh();
   }
 
@@ -172,28 +191,41 @@ function InboxPanel() {
 
   return (
     <div className="space-y-3">
-      {messages.map((m) => (
-        <div key={m.id} className={`rounded-xl border p-4 ${m.read ? "border-white/10 bg-white/5" : "border-fuchsia-400/30 bg-fuchsia-400/5"}`}>
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="font-semibold">{m.name} {!m.read && <span className="ml-1 rounded-full bg-fuchsia-500/30 px-2 py-0.5 text-[11px] text-fuchsia-200">new</span>}</p>
-              <a href={`mailto:${m.email}`} className="inline-flex items-center gap-1 text-sm text-sky-300 hover:underline">
-                <Mail className="h-3.5 w-3.5" /> {m.email}
-              </a>
-            </div>
-            <div className="flex items-center gap-1">
-              <button onClick={() => toggleRead(m)} title={m.read ? "Mark unread" : "Mark read"} className={btn + " text-slate-300 hover:bg-white/10"}>
-                {m.read ? <Mail className="h-4 w-4" /> : <MailOpen className="h-4 w-4" />}
-              </button>
-              <button onClick={() => remove(m.id)} title="Delete" className={btn + " text-rose-300 hover:bg-rose-500/10"}>
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
+      {messages.map((m) => {
+        const isOpen = openId === m.id;
+        return (
+          <div key={m.id} className={`overflow-hidden rounded-xl border ${m.read ? "border-white/10 bg-white/5" : "border-fuchsia-400/30 bg-fuchsia-400/5"}`}>
+            <button onClick={() => open(m)} className="flex w-full items-start justify-between gap-3 p-4 text-left">
+              <div className="min-w-0">
+                <p className="font-semibold">
+                  {m.name}{" "}
+                  {!m.read && <span className="ml-1 rounded-full bg-fuchsia-500/30 px-2 py-0.5 text-[11px] text-fuchsia-200">new</span>}
+                </p>
+                <p className="truncate text-sm text-slate-400">{m.email}</p>
+                {!isOpen && <p className="mt-1 truncate text-sm text-slate-300">{m.message}</p>}
+              </div>
+              <ChevronDown className={`mt-1 h-4 w-4 shrink-0 text-slate-400 transition ${isOpen ? "rotate-180" : ""}`} />
+            </button>
+            {isOpen && (
+              <div className="border-t border-white/10 p-4">
+                <p className="whitespace-pre-wrap text-sm text-slate-200">{m.message}</p>
+                <p className="mt-2 text-xs text-slate-500">{new Date(m.created_at).toLocaleString()}</p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <a href={replyHref(m)} className={btn + " bg-gradient-to-br from-fuchsia-600 to-sky-600 text-white"}>
+                    <Reply className="h-4 w-4" /> Reply by email
+                  </a>
+                  <button onClick={() => toggleRead(m)} className={btn + " text-slate-300 hover:bg-white/10"}>
+                    {m.read ? <><Mail className="h-4 w-4" /> Mark unread</> : <><MailOpen className="h-4 w-4" /> Mark read</>}
+                  </button>
+                  <button onClick={() => remove(m.id)} className={btn + " text-rose-300 hover:bg-rose-500/10"}>
+                    <Trash2 className="h-4 w-4" /> Delete
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-          <p className="mt-2 whitespace-pre-wrap text-sm text-slate-200">{m.message}</p>
-          <p className="mt-2 text-xs text-slate-500">{new Date(m.created_at).toLocaleString()}</p>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

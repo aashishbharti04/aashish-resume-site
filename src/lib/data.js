@@ -7,6 +7,21 @@ const CONTENT_ROW_ID = "site";
 
 // ---------------- Content ----------------
 
+// Merge a saved snapshot over the code defaults. Saved values win, but newly
+// added default fields (e.g. a new social platform) still appear so the site
+// isn't frozen to whatever was last saved.
+function mergeContent(saved) {
+  if (!saved || typeof saved !== "object") return defaultContent;
+  const merged = { ...defaultContent, ...saved };
+  merged.profile = { ...defaultContent.profile, ...(saved.profile || {}) };
+  const socialMap = new Map(defaultContent.socials.map((s) => [s.platform, { ...s }]));
+  (saved.socials || []).forEach((s) => {
+    if (s && s.platform) socialMap.set(s.platform, { ...(socialMap.get(s.platform) || {}), ...s });
+  });
+  merged.socials = [...socialMap.values()];
+  return merged;
+}
+
 export async function loadContent() {
   if (hasSupabase) {
     const { data, error } = await supabase
@@ -15,11 +30,11 @@ export async function loadContent() {
       .eq("id", CONTENT_ROW_ID)
       .maybeSingle();
     if (error) throw error;
-    return data?.data ? { ...defaultContent, ...data.data } : defaultContent;
+    return mergeContent(data?.data);
   }
   try {
     const raw = localStorage.getItem(CONTENT_KEY);
-    return raw ? { ...defaultContent, ...JSON.parse(raw) } : defaultContent;
+    return raw ? mergeContent(JSON.parse(raw)) : defaultContent;
   } catch {
     return defaultContent;
   }

@@ -22,6 +22,7 @@ export const defaultContent = {
   },
 
   socials: [
+    { platform: "whatsapp", url: "https://wa.me/919565263445" },
     { platform: "github", url: "https://github.com/aashishbharti04" },
     { platform: "linkedin", url: "https://www.linkedin.com/in/aashana1012" },
     { platform: "x", url: "https://x.com/" },
