@@ -466,9 +466,8 @@ export default function ResumeSite() {
 
       {/* FOOTER */}
       <footer className="border-t border-slate-900/10 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 py-8 text-sm text-slate-500 dark:text-slate-400 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4">
+        <div className="mx-auto max-w-6xl px-4 text-center">
           <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
-          <SocialRow items={socials} />
         </div>
       </footer>
     </div>
