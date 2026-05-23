@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 // Original, hand-drawn anime-style mascots (no copyrighted artwork).
@@ -100,19 +101,39 @@ const MASCOTS = [
   { key: "boy", label: "Khadoos", Comp: GrumpyBoy },
 ];
 
+// 10 taps on the Khadoos boy secretly opens the admin dashboard.
+const SECRET_KEY = "boy";
+const SECRET_TAPS = 10;
+
 export default function MascotBand() {
+  const [taps, setTaps] = useState(0);
+
+  const handleTap = (key) => {
+    if (key !== SECRET_KEY) return;
+    setTaps((t) => {
+      const next = t + 1;
+      if (next >= SECRET_TAPS) {
+        window.location.hash = "#/admin";
+        return 0;
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 pb-6">
       <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-10">
         {MASCOTS.map((m, i) => (
           <motion.div
             key={m.key}
+            onClick={() => handleTap(m.key)}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, duration: 0.5 }}
             whileHover={{ scale: 1.12, rotate: -4 }}
-            className="group flex flex-col items-center gap-2"
+            whileTap={{ scale: 0.9 }}
+            className="group flex cursor-pointer select-none flex-col items-center gap-2"
           >
             <div
               className="h-16 w-16 drop-shadow-[0_6px_18px_rgba(168,85,247,0.35)] sm:h-20 sm:w-20"

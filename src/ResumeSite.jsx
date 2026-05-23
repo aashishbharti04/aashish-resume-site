@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import {
   Mail, Phone, MapPin, FileDown, ArrowRight,
-  Briefcase, GraduationCap, Code, Award, ExternalLink, Lock
+  Briefcase, GraduationCap, Code, Award, ExternalLink
 } from "lucide-react";
 import AnimatedName from "./components/AnimatedName";
 import MascotBand from "./components/Mascots";
@@ -467,16 +467,7 @@ export default function ResumeSite() {
       <footer className="border-t border-slate-900/10 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 py-8 text-sm text-slate-500 dark:text-slate-400 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4">
           <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <SocialRow items={socials} />
-            <a
-              href="#/admin"
-              className="inline-flex items-center gap-1.5 text-slate-400 transition hover:text-fuchsia-400"
-              title="Admin login"
-            >
-              <Lock className="h-3.5 w-3.5" /> Admin
-            </a>
-          </div>
+          <SocialRow items={socials} />
         </div>
       </footer>
     </div>
