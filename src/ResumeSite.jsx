@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import {
   Mail, Phone, Github, Linkedin, MapPin, FileDown, ArrowRight,
-  Briefcase, GraduationCap, Code, Award, ExternalLink, Sparkles
+  Briefcase, GraduationCap, Code, Award, ExternalLink
 } from "lucide-react";
 
 const RESUME_URL = "/AAshish.pdf";
@@ -29,12 +29,12 @@ const Section = ({ id, title, kicker, children }) => (
         className="mb-8"
       >
         {kicker && (
-          <p className="text-sm uppercase tracking-widest text-slate-400">
+          <p className="text-sm uppercase tracking-widest text-slate-500 dark:text-slate-400">
             {kicker}
           </p>
         )}
         <h2 className="mt-1 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          <span className="bg-gradient-to-r from-fuchsia-300 via-violet-300 to-sky-300 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-sky-600 dark:from-fuchsia-300 dark:via-violet-300 dark:to-sky-300 bg-clip-text text-transparent">
             {title}
           </span>
         </h2>
@@ -51,7 +51,7 @@ const GlassCard = ({ children, className = "" }) => (
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.5 }}
     className={
-      "group relative rounded-2xl border border-white/10 bg-white/5 p-5 shadow backdrop-blur-xl " +
+      "group relative rounded-2xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 p-5 shadow backdrop-blur-xl " +
       "before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100 " +
       className
     }
@@ -64,7 +64,7 @@ const GlassCard = ({ children, className = "" }) => (
 const SkillChip = ({ text }) => (
   <motion.span
     whileHover={{ y: -2 }}
-    className="rounded-xl border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200 shadow-sm"
+    className="rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1 text-sm text-slate-700 dark:text-slate-200 shadow-sm"
   >
     {text}
   </motion.span>
@@ -222,18 +222,15 @@ export default function ResumeSite() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-fuchsia-500/40">
+    <div className="min-h-screen bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100 selection:bg-fuchsia-500/40">
       <ScrollProgress />
       <CursorGlow />
       <BgAurora />
 
       {/* Navbar */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-slate-900/10 dark:border-white/10 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
-            <span className="inline-grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-fuchsia-500 to-sky-500 shadow-lg">
-              <Sparkles className="h-4 w-4 text-white" />
-            </span>
             <span className="text-sm font-semibold tracking-tight">
               Aashish Bharti
             </span>
@@ -243,8 +240,8 @@ export default function ResumeSite() {
               <button
                 key={n.id}
                 onClick={() => scrollTo(n.id)}
-                className={`relative rounded-full px-3 py-1.5 text-sm transition-all hover:bg-white/5 ${
-                  active === n.id ? "bg-white/10 text-white" : "text-slate-300"
+                className={`relative rounded-full px-3 py-1.5 text-sm transition-all hover:bg-slate-900/5 dark:hover:bg-white/5 ${
+                  active === n.id ? "bg-slate-900/10 text-slate-900 dark:bg-white/10 dark:text-white" : "text-slate-600 dark:text-slate-300"
                 }`}
               >
                 {n.label}
@@ -275,16 +272,16 @@ export default function ResumeSite() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[13px] text-slate-300">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1 text-[13px] text-slate-600 dark:text-slate-300">
                 <MapPin className="h-3.5 w-3.5" /> Punjab, India
               </div>
               <h1 className="text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-                <span className="bg-[linear-gradient(110deg,#ffffff_0%,#c084fc_30%,#60a5fa_60%,#22d3ee_100%)] bg-clip-text text-transparent">
+                <span className="bg-[linear-gradient(110deg,#0f172a_0%,#7c3aed_35%,#2563eb_65%,#0891b2_100%)] dark:bg-[linear-gradient(110deg,#ffffff_0%,#c084fc_30%,#60a5fa_60%,#22d3ee_100%)] bg-clip-text text-transparent">
                   Generative AI Designer
                 </span>
                 <br /> & Full-Stack-leaning Web Developer
               </h1>
-              <p className="mt-4 max-w-xl text-slate-300">
+              <p className="mt-4 max-w-xl text-slate-600 dark:text-slate-300">
                 BCA graduate crafting high-polish, animated interfaces and reliable
                 code. I bring UX clarity, performance, and motion to your product.
               </p>
@@ -296,7 +293,7 @@ export default function ResumeSite() {
                         .getElementById("contact")
                         ?.scrollIntoView({ behavior: "smooth" })
                     }
-                    className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 shadow transition hover:-translate-y-0.5 hover:bg-white/15"
+                    className="group inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/10 px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-white/90 shadow transition hover:-translate-y-0.5 hover:bg-slate-900/10 dark:hover:bg-white/15"
                   >
                     Contact Me{" "}
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
@@ -311,7 +308,7 @@ export default function ResumeSite() {
                   View Portfolio <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
-              <div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-300">
+              <div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-600 dark:text-slate-300">
                 <span className="inline-flex items-center gap-2">
                   <Mail className="h-4 w-4" /> jnvpbhaashishbharti@gmail.com
                 </span>
@@ -330,26 +327,26 @@ export default function ResumeSite() {
                   <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-fuchsia-600 to-sky-600 shadow" />
                     <div>
-                      <p className="text-sm text-slate-300">Hello, I’m</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-300">Hello, I’m</p>
                       <p className="text-xl font-semibold">Aashish Bharti</p>
                     </div>
                   </div>
                   <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                   <div className="flex flex-wrap items-center gap-3 text-sm">
                     <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                       href="mailto:jnvpbhaashishbharti@gmail.com"
                     >
                       <Mail className="h-4 w-4" /> Email
                     </a>
                     <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                       href="tel:+919794228390"
                     >
                       <Phone className="h-4 w-4" /> Call
                     </a>
                     <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                       target="_blank"
                       rel="noreferrer noopener"
                       href="https://www.linkedin.com/in/aashana1012"
@@ -357,7 +354,7 @@ export default function ResumeSite() {
                       <Linkedin className="h-4 w-4" /> LinkedIn
                     </a>
                     <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                       target="_blank"
                       rel="noreferrer noopener"
                       href="https://github.com/aashishbharti04/"
@@ -373,7 +370,7 @@ export default function ResumeSite() {
 
         {/* Skills marquee */}
         <div className="mt-12 overflow-hidden py-2">
-          <div className="flex w-max animate-[marquee_20s_linear_infinite] whitespace-nowrap text-sm text-slate-300 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          <div className="flex w-max animate-[marquee_20s_linear_infinite] whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             {[
               ...[
                 "C","C++","Java","Python","HTML","CSS","JavaScript",
@@ -400,7 +397,7 @@ export default function ResumeSite() {
       {/* ABOUT */}
       <Section id="about" title="About" kicker="who i am">
         <GlassCard>
-          <p className="text-slate-200">
+          <p className="text-slate-700 dark:text-slate-200">
             I design and build expressive, performant web experiences. My sweet
             spot is marrying <span className="text-fuchsia-300">clean UX</span>{" "}
             with <span className="text-sky-300">solid engineering</span>, using
@@ -414,7 +411,7 @@ export default function ResumeSite() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {Object.entries(skills).map(([group, list]) => (
             <GlassCard key={group}>
-              <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-white">
+              <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-white">
                 <Code className="h-4 w-4" /> {group}
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -434,10 +431,10 @@ export default function ResumeSite() {
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <Briefcase className="h-4 w-4" /> COSMIC365.AI — Associate
             </h3>
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Aug 2024 – Oct 2024 · Lucknow, India
             </p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-200">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
               <li>Shipped AI-driven prototypes and elevated UI polish with motion.</li>
               <li>Collaborated cross-functionally; emphasized responsiveness & clarity.</li>
             </ul>
@@ -447,8 +444,8 @@ export default function ResumeSite() {
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <Briefcase className="h-4 w-4" /> BBAU — BCA Student
             </h3>
-            <p className="text-sm text-slate-400">Jul 2022 – Jun 2025 · Lucknow, India</p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-200">
+            <p className="text-sm text-slate-500 dark:text-slate-400">Jul 2022 – Jun 2025 · Lucknow, India</p>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
               <li>Built dynamic websites; analyzed real-world datasets.</li>
               <li>Strong base in OOP, DSA, and software engineering practices.</li>
             </ul>
@@ -458,8 +455,8 @@ export default function ResumeSite() {
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <Briefcase className="h-4 w-4" /> JNV — Computer Science
             </h3>
-            <p className="text-sm text-slate-400">Aug 2015 – Jun 2022 · Pratapgarh, India</p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-200">
+            <p className="text-sm text-slate-500 dark:text-slate-400">Aug 2015 – Jun 2022 · Pratapgarh, India</p>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
               <li>Strengthened fundamentals in programming and problem solving.</li>
             </ul>
           </GlassCard>
@@ -473,13 +470,13 @@ export default function ResumeSite() {
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <GraduationCap className="h-4 w-4" /> BBAU, Lucknow — BCA
             </h3>
-            <p className="text-sm text-slate-400">2022 – 2025</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">2022 – 2025</p>
           </GlassCard>
           <GlassCard>
             <h3 className="text-base font-semibold text-white flex items-center gap-2">
               <GraduationCap className="h-4 w-4" /> Jawahar Navodaya Vidyalaya (JNV)
             </h3>
-            <p className="text-sm text-slate-400">2015 – 2022</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">2015 – 2022</p>
           </GlassCard>
         </div>
       </Section>
@@ -523,8 +520,8 @@ export default function ResumeSite() {
           ].map((p) => (
             <Tilt key={p.title}>
               <GlassCard className="h-full">
-                <h3 className="text-lg font-semibold text-white">{p.title}</h3>
-                <p className="mt-2 text-sm text-slate-300">{p.desc}</p>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{p.title}</h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{p.desc}</p>
                 <a
                   href={p.href}
                   target={p.href.startsWith("http") ? "_blank" : undefined}
@@ -543,26 +540,26 @@ export default function ResumeSite() {
       <Section id="contact" title="Contact" kicker="say hi">
         <div className="grid gap-4 md:grid-cols-3">
           <GlassCard className="md:col-span-2">
-            <h3 className="mb-3 text-base font-semibold text-white">Work with me</h3>
-            <p className="text-sm text-slate-300">
+            <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Work with me</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-300">
               Open to internships and full-time roles in front-end, web, or
               data-focused teams. Email or call is fastest.
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
               <a
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                 href="mailto:jnvpbhaashishbharti@gmail.com"
               >
                 <Mail className="h-4 w-4" /> jnvpbhaashishbharti@gmail.com
               </a>
               <a
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                 href="tel:+919794228390"
               >
                 <Phone className="h-4 w-4" /> +91 97942 28390
               </a>
               <a
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                 target="_blank"
                 rel="noreferrer noopener"
                 href="https://www.linkedin.com/in/aashana1012"
@@ -570,7 +567,7 @@ export default function ResumeSite() {
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
               <a
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
                 target="_blank"
                 rel="noreferrer noopener"
                 href="https://github.com/aashishbharti04/"
@@ -581,7 +578,7 @@ export default function ResumeSite() {
           </GlassCard>
 
           <GlassCard>
-            <h3 className="mb-3 text-base font-semibold text-white">Quick links</h3>
+            <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Quick links</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
@@ -609,7 +606,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* FOOTER */}
-      <footer className="border-t border-white/10 bg-slate-950/80 py-8 text-sm text-slate-400 backdrop-blur-xl">
+      <footer className="border-t border-slate-900/10 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 py-8 text-sm text-slate-500 dark:text-slate-400 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4">
           <p>© {new Date().getFullYear()} Aashish Bharti. All rights reserved.</p>
           <div className="flex items-center gap-4">
@@ -679,7 +676,7 @@ function ThemeToggle() {
   return (
     <button
       onClick={() => setDark((d) => !d)}
-      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-200 shadow hover:bg-white/10"
+      className="inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-200 shadow hover:bg-white/10"
       title="Toggle theme"
     >
       <span
