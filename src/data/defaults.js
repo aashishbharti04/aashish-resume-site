@@ -4,12 +4,15 @@
 export const defaultContent = {
   profile: {
     name: "Aashish Bharti",
-    role: "Generative AI Designer & Full-Stack-leaning Web Developer",
+    role: "Generative AI Specialist · Vibe Coder · Content Creator",
+    tagline:
+      "I create with generative AI — content, images, and video — and vibe-code full products using Claude, ChatGPT, Gemini, and Ollama.",
+    quote: "I'm doing what I love to do...😎💙",
     location: "Punjab, India",
     email: "jnvpbhaashishbharti@gmail.com",
     phone: "+91 97942 28390",
     about:
-      "I design and build expressive, performant web experiences. My sweet spot is marrying clean UX with solid engineering, using delightful motion to guide attention without getting in the way.",
+      "I'm an AI generalist who builds end to end with generative AI — from content, image, and video generation to shipping full web products by vibe coding across tools like Claude, ChatGPT, Gemini, and Ollama. I turn ideas into working apps fast, blending strong AI fluency with clean, motion-rich interfaces.",
   },
 
   socials: [
@@ -21,11 +24,12 @@ export const defaultContent = {
   ],
 
   skills: [
-    { group: "Programming", items: ["C", "C++", "Java", "Python"] },
-    { group: "Web Development", items: ["HTML", "CSS", "JavaScript", "Bootstrap", "WordPress"] },
-    { group: "Data Analysis", items: ["Python (Pandas, NumPy)", "MS Excel", "Power BI"] },
-    { group: "Software Development", items: ["OOP", "Data Structures", "Software Engineering"] },
-    { group: "Version Control", items: ["Git", "GitHub"] },
+    { group: "AI Tools", items: ["Claude", "ChatGPT", "Gemini", "Ollama", "Cursor", "GitHub Copilot"] },
+    { group: "Generative AI", items: ["Content Generation", "Image Generation", "Video Generation", "Prompt Engineering", "LLMs", "RAG"] },
+    { group: "Vibe Coding", items: ["AI-Assisted Dev", "Rapid Prototyping", "Spec-to-App", "Automation"] },
+    { group: "Web Development", items: ["React", "JavaScript", "HTML", "CSS", "Tailwind", "WordPress"] },
+    { group: "Programming", items: ["Python", "C", "C++", "Java"] },
+    { group: "Data & Version Control", items: ["Pandas", "NumPy", "Power BI", "Git", "GitHub"] },
   ],
 
   experience: [

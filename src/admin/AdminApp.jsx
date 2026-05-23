@@ -270,6 +270,12 @@ function ContentPanel() {
           <Field label="Phone" value={content.profile.phone} onChange={(v) => setProfile("phone", v)} />
         </div>
         <div className="mt-3">
+          <Field label="Hero tagline" textarea value={content.profile.tagline || ""} onChange={(v) => setProfile("tagline", v)} />
+        </div>
+        <div className="mt-3">
+          <Field label="Highlighted quote" value={content.profile.quote || ""} onChange={(v) => setProfile("quote", v)} />
+        </div>
+        <div className="mt-3">
           <Field label="About" textarea value={content.profile.about} onChange={(v) => setProfile("about", v)} />
         </div>
       </Group>

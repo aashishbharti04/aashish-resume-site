@@ -219,6 +219,7 @@ export default function ResumeSite() {
   const active = useActiveSection();
   const { content } = useContent();
   const { profile, socials, skills, experience, education, certs, projects } = content;
+  const marqueeItems = skills.flatMap((g) => g.items);
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
@@ -275,9 +276,18 @@ export default function ResumeSite() {
                 {profile.role}
               </p>
               <p className="mt-4 max-w-xl text-slate-600 dark:text-slate-300">
-                BCA graduate crafting high-polish, animated interfaces and reliable code. I bring UX
-                clarity, performance, and motion to your product.
+                {profile.tagline}
               </p>
+              {profile.quote && (
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="mt-5 inline-flex max-w-xl items-center rounded-2xl bg-gradient-to-r from-fuchsia-500/15 via-violet-500/15 to-sky-500/15 px-5 py-3 text-base font-semibold italic text-slate-800 shadow-[0_0_30px_rgba(217,70,239,0.25)] ring-1 ring-fuchsia-400/40 dark:text-white sm:text-lg"
+                >
+                  &ldquo;{profile.quote}&rdquo;
+                </motion.p>
+              )}
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Magnetic>
                   <button
@@ -317,6 +327,17 @@ export default function ResumeSite() {
               </div>
             </GlassCard>
           </Tilt>
+        </div>
+
+        {/* Skills marquee */}
+        <div className="mt-12 overflow-hidden py-2">
+          <div className="flex w-max animate-[marquee_20s_linear_infinite] whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            {[...marqueeItems, ...marqueeItems].map((s, i) => (
+              <span key={i} className="mx-4 inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-fuchsia-400" /> {s}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
