@@ -382,6 +382,9 @@ export default function ResumeSite() {
                 <GraduationCap className="h-4 w-4" /> {ed.school}
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">{ed.period}</p>
+              {ed.detail && (
+                <p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-200">{ed.detail}</p>
+              )}
             </GlassCard>
           ))}
         </div>

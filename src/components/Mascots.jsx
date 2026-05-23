@@ -108,7 +108,7 @@ const MASCOTS = [
   { key: "panda", label: "Pandu", Comp: Panda },
   { key: "dog", label: "Pillu", Comp: Dog },
   { key: "jalebi", label: "Jalebi", Comp: Jalebi },
-  { key: "boy", label: "Khadoos", Comp: GrumpyBoy },
+  { key: "boy", label: "Khadush", Comp: GrumpyBoy, big: true },
 ];
 
 // 10 taps on the Khadoos boy secretly opens the admin dashboard.
@@ -146,7 +146,10 @@ export default function MascotBand() {
             className="group flex cursor-pointer select-none flex-col items-center gap-2"
           >
             <div
-              className="h-16 w-16 drop-shadow-[0_6px_18px_rgba(168,85,247,0.35)] sm:h-20 sm:w-20"
+              className={
+                (m.big ? "h-24 w-24 sm:h-28 sm:w-28" : "h-16 w-16 sm:h-20 sm:w-20") +
+                " drop-shadow-[0_6px_18px_rgba(168,85,247,0.35)]"
+              }
               style={{ animation: `float-y ${3 + i * 0.4}s ease-in-out infinite` }}
             >
               <m.Comp />

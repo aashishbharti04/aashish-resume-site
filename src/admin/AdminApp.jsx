@@ -348,6 +348,9 @@ function ContentPanel() {
                 <Field label="School" value={ed.school} onChange={(v) => updateItem(set, content, "education", i, { school: v })} />
                 <Field label="Period" value={ed.period} onChange={(v) => updateItem(set, content, "education", i, { period: v })} />
               </div>
+              <div className="mt-3">
+                <Field label="Details" textarea value={ed.detail || ""} onChange={(v) => updateItem(set, content, "education", i, { detail: v })} />
+              </div>
               <RemoveBtn onClick={() => set({ education: content.education.filter((_, j) => j !== i) })} />
             </div>
           ))}

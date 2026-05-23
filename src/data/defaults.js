@@ -28,41 +28,48 @@ export const defaultContent = {
   ],
 
   skills: [
-    { group: "AI Tools", items: ["Claude", "ChatGPT", "Gemini", "Ollama", "Cursor", "GitHub Copilot"] },
+    { group: "AI Tools — my superpowers", items: ["Claude", "ChatGPT", "Gemini", "Ollama", "Cursor", "GitHub Copilot"] },
     { group: "Generative AI", items: ["Content Generation", "Image Generation", "Video Generation", "Prompt Engineering", "LLMs", "RAG"] },
-    { group: "Vibe Coding", items: ["AI-Assisted Dev", "Rapid Prototyping", "Spec-to-App", "Automation"] },
-    { group: "Web Development", items: ["React", "JavaScript", "HTML", "CSS", "Tailwind", "WordPress"] },
-    { group: "Programming", items: ["Python", "C", "C++", "Java"] },
-    { group: "Data & Version Control", items: ["Pandas", "NumPy", "Power BI", "Git", "GitHub"] },
+    { group: "Vibe Coding (my actual job)", items: ["Full-Stack with AI", "AI-Assisted Dev", "Rapid Prototyping", "Spec-to-App"] },
+    { group: "Web Dev (AI does the heavy lifting)", items: ["React", "HTML", "CSS", "Tailwind", "WordPress"] },
+    { group: "Still leveling up", items: ["Python (basics)", "JavaScript (basics)", "Git (basics)"] },
   ],
 
   experience: [
     {
+      org: "Pulselead Signals & Corerank Digital — AI Manager",
+      period: "Dec 2025 – Present · ~6 months",
+      points: [
+        "Leading AI across two companies at once — officially the human in charge of a very smart robot army. 🤖",
+        "Turn \"can AI even do this?\" into shipped products: content, automation, and generative-AI workflows.",
+        "Coach Claude, ChatGPT, Gemini & Ollama like a team — and somehow they listen to me more than humans do. 😎",
+      ],
+    },
+    {
       org: "COSMIC365.AI — Associate",
       period: "Aug 2024 – Oct 2024 · Lucknow, India",
       points: [
-        "Shipped AI-driven prototypes and elevated UI polish with motion.",
-        "Collaborated cross-functionally; emphasized responsiveness & clarity.",
+        "Shipped AI-driven prototypes and made the UI so shiny that people forgot to read the actual text. ✨",
+        "Collaborated cross-functionally (translation: explained to humans what the AI was trying to say).",
+        "Learned the real secret of building cool things — 90% is just asking the right question, to the AI and the team.",
+        "Walked away with one superpower: turning vague ideas into working demos before the chai went cold. ☕",
       ],
-    },
-    {
-      org: "BBAU — BCA Student",
-      period: "Jul 2022 – Jun 2025 · Lucknow, India",
-      points: [
-        "Built dynamic websites; analyzed real-world datasets.",
-        "Strong base in OOP, DSA, and software engineering practices.",
-      ],
-    },
-    {
-      org: "JNV — Computer Science",
-      period: "Aug 2015 – Jun 2022 · Pratapgarh, India",
-      points: ["Strengthened fundamentals in programming and problem solving."],
     },
   ],
 
   education: [
-    { school: "BBAU, Lucknow — BCA", period: "2022 – 2025" },
-    { school: "Jawahar Navodaya Vidyalaya (JNV)", period: "2015 – 2022" },
+    {
+      school: "BBAU, Lucknow — BCA",
+      period: "2022 – 2025",
+      detail:
+        "Three glorious years of BCA — where I figured out that good wifi + curiosity can change a life. Loads of fun, group projects, endless chai, and the moment I fell in love with building things. 🎓",
+    },
+    {
+      school: "Jawahar Navodaya Vidyalaya (JNV)",
+      period: "2015 – 2022",
+      detail:
+        "Class 6th to 12th, full hostel life — discipline by day, legendary hostel masti by night. Made friends for life, survived mess food, and learned that the best lessons happen outside the classroom. 🏫",
+    },
   ],
 
   certs: [
