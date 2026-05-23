@@ -9,7 +9,7 @@ export const defaultContent = {
       "I create with generative AI — content, images, and video — and vibe-code full products using Claude, ChatGPT, Gemini, and Ollama.",
     quote: "I'm doing what I love to do...😎💙",
     certsNote:
-      "Plot twist: I could frame every one of these certificates on my wall... but these days I just let AI do the heavy lifting while I sip my chai. Why memorize syntax when you can vibe? 😎💙",
+      "Real talk: I can keep stacking degrees and certificates all day... but right now I'm building everything with AI and my own skills — no certificate required. Why memorize syntax when you can vibe? 😎 💙💚❤️💛",
     location: "Punjab, India",
     email: "jnvpbhaashishbharti@gmail.com",
     phone: "+91 97942 28390",
@@ -70,7 +70,7 @@ export const defaultContent = {
       school: "Jawahar Navodaya Vidyalaya (JNV) — Class 6th to 12th",
       period: "2015 – 2022 · 7 years",
       detail:
-        "Seven full years of hostel life — discipline by day, legendary masti by night. From Class 6th to 12th I learned maths, science, and the far more important art of surviving mess food and making friends who feel like family. Lights-out rules, midnight talks, morning PT, and a whole childhood of memories. Honestly, JNV raised me as much as it taught me. 🏫❤️",
+        "Seven full years of hostel life — discipline by day, legendary masti by night. From Class 6th to 12th I learned maths, science, and the far more important art of surviving mess food and making friends who feel like family. Lights-out rules, midnight talks, morning PT, and a whole childhood of memories. Honestly, JNV raised me as much as it taught me. 🏫 💙💚❤️💛",
     },
   ],
 

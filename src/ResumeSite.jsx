@@ -24,7 +24,7 @@ const navItems = [
 ];
 
 // -------------------- UI PRIMITIVES --------------------
-const Section = ({ id, title, kicker, children }) => (
+const Section = ({ id, title, kicker, punchline, children }) => (
   <section id={id} className="scroll-mt-24 py-16">
     <div className="mx-auto max-w-6xl px-4">
       <motion.div
@@ -44,6 +44,9 @@ const Section = ({ id, title, kicker, children }) => (
             {title}
           </span>
         </h2>
+        {punchline && (
+          <p className="mt-2 max-w-2xl text-sm italic text-slate-500 dark:text-slate-400">{punchline}</p>
+        )}
       </motion.div>
       {children}
     </div>
@@ -249,14 +252,6 @@ export default function ResumeSite() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a
-              href={RESUME_URL}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-fuchsia-600 to-sky-600 px-3 py-1.5 text-sm font-medium text-white shadow hover:brightness-110"
-            >
-              <FileDown className="h-4 w-4" /> Download
-            </a>
             <ThemeToggle />
           </div>
         </div>
@@ -327,7 +322,7 @@ export default function ResumeSite() {
       </section>
 
       {/* ABOUT */}
-      <Section id="about" title="About" kicker="who i am">
+      <Section id="about" title="About" kicker="who i am" punchline="Warning: contains 100% real human, 0% boring corporate energy. 😎">
         <GlassCard>
           <div className="space-y-3 text-slate-700 dark:text-slate-200">
             {profile.about.split("\n").filter((p) => p.trim()).map((para, i) => (
@@ -338,7 +333,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* SKILLS */}
-      <Section id="skills" title="Skills" kicker="what i use">
+      <Section id="skills" title="Skills" kicker="what i use" punchline="Certificates are cute. Shipping real things with AI is cuter. 😏">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map(({ group, note, items }) => (
             <GlassCard key={group}>
@@ -357,7 +352,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* EXPERIENCE */}
-      <Section id="experience" title="Experience" kicker="where i've worked">
+      <Section id="experience" title="Experience" kicker="where i've worked" punchline="Fewer résumé buzzwords, more actually shipping cool stuff. 🚀">
         <div className="grid gap-4 md:grid-cols-2">
           {experience.map((e) => (
             <GlassCard key={e.org}>
@@ -376,7 +371,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* EDUCATION */}
-      <Section id="education" title="Education" kicker="learning">
+      <Section id="education" title="Education" kicker="learning" punchline="Degrees collected ✅. But honestly? These days I just learn whatever I need, the moment I need it. 📚">
         <div className="grid gap-4 md:grid-cols-2">
           {education.map((ed) => (
             <GlassCard key={ed.school}>
@@ -393,7 +388,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* CERTIFICATIONS */}
-      <Section id="certs" title="Certifications" kicker="proof (and chai)">
+      <Section id="certs" title="Certifications" kicker="proof (and chai)" punchline="I can collect degrees & certificates all day... but right now I build everything with AI and my own skills — no certificate required. 😎">
         <GlassCard>
           <div className="grid gap-3 sm:grid-cols-2">
             {certs.map((c) => (
@@ -414,7 +409,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* PROJECTS */}
-      <Section id="projects" title="Projects" kicker="selected work">
+      <Section id="projects" title="Projects" kicker="selected work" punchline="Not slides. Not mockups. Real, live sites you can click right now. 👇">
         <div className="grid gap-6 md:grid-cols-2">
           {projects.map((p) => (
             <Tilt key={p.title}>
@@ -448,7 +443,7 @@ export default function ResumeSite() {
       </Section>
 
       {/* CONTACT */}
-      <Section id="contact" title="Contact" kicker="say hi">
+      <Section id="contact" title="Contact" kicker="say hi" punchline="Got an idea? Let's vibe-code it into reality. The form bites less than my mascots. 💬">
         <div className="grid gap-4 md:grid-cols-3">
           <GlassCard className="md:col-span-2">
             <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Send me a message</h3>
