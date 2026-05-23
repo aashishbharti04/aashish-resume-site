@@ -157,7 +157,13 @@ function replyHref(m) {
   const body =
     `Hi ${m.name},\n\nThanks for reaching out — here's my reply:\n\n\n\n` +
     `—— On ${new Date(m.created_at).toLocaleString()} you wrote ——\n${quoted}`;
-  return `mailto:${m.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  // Open Gmail's compose window directly (web/app) so replying is one click.
+  return (
+    "https://mail.google.com/mail/?view=cm&fs=1" +
+    `&to=${encodeURIComponent(m.email)}` +
+    `&su=${encodeURIComponent(subject)}` +
+    `&body=${encodeURIComponent(body)}`
+  );
 }
 
 function InboxPanel() {
@@ -211,8 +217,8 @@ function InboxPanel() {
                 <p className="whitespace-pre-wrap text-sm text-slate-200">{m.message}</p>
                 <p className="mt-2 text-xs text-slate-500">{new Date(m.created_at).toLocaleString()}</p>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <a href={replyHref(m)} className={btn + " bg-gradient-to-br from-fuchsia-600 to-sky-600 text-white"}>
-                    <Reply className="h-4 w-4" /> Reply by email
+                  <a href={replyHref(m)} target="_blank" rel="noopener noreferrer" className={btn + " bg-gradient-to-br from-fuchsia-600 to-sky-600 text-white"}>
+                    <Reply className="h-4 w-4" /> Reply in Gmail
                   </a>
                   <button onClick={() => toggleRead(m)} className={btn + " text-slate-300 hover:bg-white/10"}>
                     {m.read ? <><Mail className="h-4 w-4" /> Mark unread</> : <><MailOpen className="h-4 w-4" /> Mark read</>}

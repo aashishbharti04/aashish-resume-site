@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { GrumpyBoy } from "./Mascots";
 
 // Playful splash shown once per browser session.
 export default function WelcomeIntro() {
@@ -36,6 +37,20 @@ export default function WelcomeIntro() {
           <div className="pointer-events-none absolute -right-1/4 bottom-0 h-[60vmax] w-[60vmax] rounded-full bg-sky-600/20 blur-3xl" />
 
           <div className="relative">
+            {/* Khadush welcomes you, then heads back to his place */}
+            <motion.div
+              className="mx-auto mb-4 h-32 w-32 drop-shadow-[0_10px_30px_rgba(168,85,247,0.5)] sm:h-40 sm:w-40"
+              initial={{ opacity: 0, scale: 0.4, y: -30 }}
+              animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+              exit={{ opacity: 0, scale: 0.3, y: 120 }}
+              transition={{
+                opacity: { duration: 0.4 },
+                scale: { type: "spring", stiffness: 200, damping: 12 },
+                y: { duration: 2.2, repeat: Infinity, ease: "easeInOut" },
+              }}
+            >
+              <GrumpyBoy />
+            </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
