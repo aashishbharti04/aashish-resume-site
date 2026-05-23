@@ -87,37 +87,18 @@ function Jalebi() {
   );
 }
 
-// Khadush — full-body grumpy guy: long hair, beard + moustache, only shorts.
+// Khadush — a friendly-but-grumpy anime kid (face).
 export function GrumpyBoy() {
   return (
     <svg viewBox="0 0 100 100" className="h-full w-full">
-      {/* long hair (back), flowing past shoulders */}
-      <path d="M31 32 q-5 -28 19 -28 q24 0 19 28 q2 16 -3 24 l-5 -2 q3 -14 0 -22 -11 -7 -22 0 q-3 8 0 22 l-5 2 q-5 -8 -3 -24Z" fill="#171a21" />
-      {/* arms */}
-      <rect x="30" y="47" width="7" height="21" rx="3.5" fill="#f0c19a" />
-      <rect x="63" y="47" width="7" height="21" rx="3.5" fill="#f0c19a" />
-      {/* bare torso */}
-      <rect x="36" y="44" width="28" height="24" rx="10" fill="#f4c9a3" />
-      {/* legs */}
-      <rect x="42" y="73" width="6.5" height="18" rx="3" fill="#f0c19a" />
-      <rect x="51.5" y="73" width="6.5" height="18" rx="3" fill="#f0c19a" />
-      {/* shorts */}
-      <path d="M35 63 h30 v6 q0 5 -5 5 h-7 l-3 -6 -3 6 h-7 q-5 0 -5 -5Z" fill="#2563eb" />
-      <path d="M35 63 h30 v2 h-30Z" fill="#1d4ed8" />
-      {/* head */}
-      <circle cx="50" cy="27" r="15" fill="#f4c9a3" />
-      {/* hair top */}
-      <path d="M34 26 q-1 -17 16 -17 q17 0 16 17 q-7 -9 -16 -9 -9 0 -16 9Z" fill="#171a21" />
-      {/* angry brows */}
-      <line x1="40" y1="23" x2="47" y2="26" stroke="#171a21" strokeWidth="2.6" strokeLinecap="round" />
-      <line x1="60" y1="23" x2="53" y2="26" stroke="#171a21" strokeWidth="2.6" strokeLinecap="round" />
-      {/* eyes */}
-      <circle cx="44" cy="29" r="2" fill="#171a21" />
-      <circle cx="56" cy="29" r="2" fill="#171a21" />
-      {/* beard */}
-      <path d="M37 32 q1 16 13 18 q12 -2 13 -18 q-5 9 -13 9 -8 0 -13 -9Z" fill="#171a21" />
-      {/* moustache */}
-      <path d="M43 35 q7 5 14 0 q-3 5 -7 5 -4 0 -7 -5Z" fill="#171a21" />
+      <path d="M24 40 q26 -28 52 0 q2 -22 -26 -24 q-28 2 -26 24Z" fill="#1f2937" />
+      <circle cx="50" cy="54" r="30" fill="#f4c9a3" />
+      <path d="M24 42 q26 -22 52 0 v-4 q-26 -22 -52 0Z" fill="#1f2937" />
+      <line x1="34" y1="48" x2="46" y2="52" stroke="#1f2937" strokeWidth="3" strokeLinecap="round" />
+      <line x1="66" y1="48" x2="54" y2="52" stroke="#1f2937" strokeWidth="3" strokeLinecap="round" />
+      <circle cx="40" cy="58" r="3.5" fill="#1f2937" />
+      <circle cx="60" cy="58" r="3.5" fill="#1f2937" />
+      <path d="M42 72 q8 -5 16 0" fill="none" stroke="#1f2937" strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
 }
