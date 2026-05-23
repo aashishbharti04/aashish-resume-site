@@ -269,7 +269,7 @@ export default function ResumeSite() {
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1 text-[13px] text-slate-600 dark:text-slate-300">
                 <MapPin className="h-3.5 w-3.5" /> {profile.location}
               </div>
-              <h1 className="text-balance text-5xl font-extrabold leading-tight tracking-tight sm:text-7xl">
+              <h1 className="text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
                 <AnimatedName name={profile.name} />
               </h1>
               <p className="mt-3 text-lg font-semibold text-slate-700 dark:text-slate-200 sm:text-xl">
@@ -310,23 +310,7 @@ export default function ResumeSite() {
             </motion.div>
           </div>
 
-          <Tilt>
-            <GlassCard className="p-0">
-              <div className="relative isolate overflow-hidden rounded-2xl">
-                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-fuchsia-500/20 to-sky-500/20 blur-xl" />
-                <div className="relative z-10 space-y-5 p-6">
-                  <div>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">Hello, I&apos;m</p>
-                    <p className="text-2xl font-bold">
-                      <AnimatedName name={profile.name} />
-                    </p>
-                  </div>
-                  <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-900/10 to-transparent dark:via-white/10" />
-                  <SocialRow items={socials} />
-                </div>
-              </div>
-            </GlassCard>
-          </Tilt>
+          <MascotBand />
         </div>
 
         {/* Skills marquee */}
@@ -341,13 +325,14 @@ export default function ResumeSite() {
         </div>
       </section>
 
-      {/* Mascots */}
-      <MascotBand />
-
       {/* ABOUT */}
       <Section id="about" title="About" kicker="who i am">
         <GlassCard>
-          <p className="text-slate-700 dark:text-slate-200">{profile.about}</p>
+          <div className="space-y-3 text-slate-700 dark:text-slate-200">
+            {profile.about.split("\n").filter((p) => p.trim()).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
         </GlassCard>
       </Section>
 

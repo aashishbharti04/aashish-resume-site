@@ -12,7 +12,11 @@ export const defaultContent = {
     email: "jnvpbhaashishbharti@gmail.com",
     phone: "+91 97942 28390",
     about:
-      "I'm an AI generalist who builds end to end with generative AI — from content, image, and video generation to shipping full web products by vibe coding across tools like Claude, ChatGPT, Gemini, and Ollama. I turn ideas into working apps fast, blending strong AI fluency with clean, motion-rich interfaces.",
+      "Hi, I'm Aashish — officially the Khadoos (the grumpy-looking one 😎) of my little squad. Doraemon, Pandu, Pillu, and Jalebi are my partners in crime: I bring the serious face, they bring the chaos.\n" +
+      "Honestly, I'm just a curious guy who can't sit still. The moment something new pops up in tech, my brain goes \"ooh, what's that?\" and I have to learn it. New tool, new model, new trick? Count me in.\n" +
+      "When I'm not building stuff, you'll find me buried in a book. Total booklover — reading is my happy place and my favorite way to recharge the brain cells.\n" +
+      "On the tech side, I live in the world of generative AI: making content, images, and videos, and vibe-coding full products with Claude, ChatGPT, Gemini, and Ollama. I also build for the web with React, JavaScript, HTML, CSS, Tailwind, and WordPress, and I know my way around Python, Pandas, Power BI, and Git.\n" +
+      "Short version: serious face, curious mind, big dreams — just doing what I love. 💙",
   },
 
   socials: [
