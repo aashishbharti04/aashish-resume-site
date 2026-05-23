@@ -62,17 +62,27 @@ function Dog() {
   );
 }
 
-function Basketball() {
+function Jalebi() {
+  const turns = 3.4;
+  const steps = 140;
+  const b = 5.2;
+  const pts = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = (i / steps) * turns * 2 * Math.PI;
+    const r = 4 + b * (t / (2 * Math.PI));
+    pts.push([50 + r * Math.cos(t), 50 + r * Math.sin(t)]);
+  }
+  const d = "M " + pts.map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" L ");
   return (
     <svg viewBox="0 0 100 100" className="h-full w-full">
-      <circle cx="50" cy="50" r="40" fill="#e8772e" />
-      <g fill="none" stroke="#1c1c1c" strokeWidth="2.5">
-        <circle cx="50" cy="50" r="40" />
-        <line x1="50" y1="10" x2="50" y2="90" />
-        <line x1="10" y1="50" x2="90" y2="50" />
-        <path d="M22 22 q28 28 0 56" />
-        <path d="M78 22 q-28 28 0 56" />
-      </g>
+      <defs>
+        <linearGradient id="jalebi-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#fbbf24" />
+          <stop offset="1" stopColor="#ea580c" />
+        </linearGradient>
+      </defs>
+      <path d={d} fill="none" stroke="url(#jalebi-grad)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={d} fill="none" stroke="#fff7ed" strokeOpacity="0.4" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -94,10 +104,10 @@ function GrumpyBoy() {
 }
 
 const MASCOTS = [
-  { key: "robot-cat", label: "Robo-Cat", Comp: RobotCat },
-  { key: "panda", label: "Panda", Comp: Panda },
-  { key: "dog", label: "Pup", Comp: Dog },
-  { key: "basketball", label: "Hoops", Comp: Basketball },
+  { key: "robot-cat", label: "Doraemon", Comp: RobotCat },
+  { key: "panda", label: "Pandu", Comp: Panda },
+  { key: "dog", label: "Pillu", Comp: Dog },
+  { key: "jalebi", label: "Jalebi", Comp: Jalebi },
   { key: "boy", label: "Khadoos", Comp: GrumpyBoy },
 ];
 
