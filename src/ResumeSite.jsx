@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import AnimatedName from "./components/AnimatedName";
 import MascotBand from "./components/Mascots";
+import WelcomeIntro from "./components/WelcomeIntro";
 import ContactForm from "./components/ContactForm";
 import { socialMeta } from "./components/SocialIcons";
 import { useContent } from "./hooks/useContent";
@@ -220,12 +221,13 @@ function CursorGlow() {
 export default function ResumeSite() {
   const active = useActiveSection();
   const { content } = useContent();
-  const { profile, socials, skills, experience, education, certs, projects } = content;
+  const { profile, socials, skills, experience, education, certs, projects, mascotLinks } = content;
   const marqueeItems = skills.flatMap((g) => g.items);
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div className="min-h-screen bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100 selection:bg-fuchsia-500/40">
+      <WelcomeIntro />
       <ScrollProgress />
       <CursorGlow />
       <BgAurora />
@@ -304,7 +306,7 @@ export default function ResumeSite() {
             </motion.div>
           </div>
 
-          <MascotBand />
+          <MascotBand links={mascotLinks} />
         </div>
 
         {/* Skills marquee */}

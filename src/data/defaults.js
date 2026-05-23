@@ -21,6 +21,14 @@ export const defaultContent = {
       "Short version: serious face, curious mind, big dreams — just doing what I love. 💙",
   },
 
+  // Optional links for the playful mascots (double/triple-tap opens them). Khadush is excluded — it's the secret admin trigger.
+  mascotLinks: {
+    "robot-cat": "",
+    panda: "",
+    dog: "",
+    jalebi: "",
+  },
+
   socials: [
     { platform: "whatsapp", url: "https://wa.me/919565263445" },
     { platform: "github", url: "https://github.com/aashishbharti04" },

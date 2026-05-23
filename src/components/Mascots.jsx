@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Original, hand-drawn anime-style mascots (no copyrighted artwork).
 
@@ -111,55 +111,91 @@ const MASCOTS = [
   { key: "boy", label: "Khadush", Comp: GrumpyBoy, big: true },
 ];
 
-// 10 taps on the Khadoos boy secretly opens the admin dashboard.
+// 10 taps on Khadush secretly opens the admin dashboard.
 const SECRET_KEY = "boy";
 const SECRET_TAPS = 10;
 
-export default function MascotBand() {
-  const [taps, setTaps] = useState(0);
+export default function MascotBand({ links = {} }) {
+  const [following, setFollowing] = useState(null);
+  const secretRef = useRef(0);
 
-  const handleTap = (key) => {
-    if (key !== SECRET_KEY) return;
-    setTaps((t) => {
-      const next = t + 1;
-      if (next >= SECRET_TAPS) {
+  const toggleFollow = (key) => setFollowing((f) => (f === key ? null : key));
+
+  // Single tap: the mascot follows you while scrolling (tap again to send it home).
+  const handleClick = (key) => {
+    if (key === SECRET_KEY) {
+      secretRef.current += 1;
+      if (secretRef.current >= SECRET_TAPS) {
+        secretRef.current = 0;
         window.location.hash = "#/admin";
-        return 0;
+        return;
       }
-      return next;
-    });
+    }
+    toggleFollow(key);
   };
 
+  // Double / triple tap: open the mascot's link (if one is set in the admin).
+  const handleDouble = (key) => {
+    if (key !== SECRET_KEY && links[key]) {
+      window.open(links[key], "_blank", "noopener,noreferrer");
+    }
+  };
+
+  const follower = MASCOTS.find((m) => m.key === following);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-6">
-      <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-10">
-        {MASCOTS.map((m, i) => (
-          <motion.div
-            key={m.key}
-            onClick={() => handleTap(m.key)}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08, duration: 0.5 }}
-            whileHover={{ scale: 1.12, rotate: -4 }}
-            whileTap={{ scale: 0.9 }}
-            className="group flex cursor-pointer select-none flex-col items-center gap-2"
-          >
-            <div
-              className={
-                (m.big ? "h-24 w-24 sm:h-28 sm:w-28" : "h-16 w-16 sm:h-20 sm:w-20") +
-                " drop-shadow-[0_6px_18px_rgba(168,85,247,0.35)]"
-              }
-              style={{ animation: `float-y ${3 + i * 0.4}s ease-in-out infinite` }}
+    <>
+      <div className="mx-auto max-w-6xl px-4 pb-6">
+        <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-10">
+          {MASCOTS.map((m, i) => (
+            <motion.div
+              key={m.key}
+              onClick={() => handleClick(m.key)}
+              onDoubleClick={() => handleDouble(m.key)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              whileHover={{ scale: 1.12, rotate: -4 }}
+              whileTap={{ scale: 0.9 }}
+              className="group flex cursor-pointer select-none flex-col items-center gap-2"
             >
-              <m.Comp />
-            </div>
-            <span className="text-xs font-medium text-slate-500 transition group-hover:text-fuchsia-400 dark:text-slate-400">
-              {m.label}
-            </span>
-          </motion.div>
-        ))}
+              <div
+                className={
+                  (m.big ? "h-24 w-24 sm:h-28 sm:w-28" : "h-16 w-16 sm:h-20 sm:w-20") +
+                  " drop-shadow-[0_6px_18px_rgba(168,85,247,0.35)] " +
+                  (following === m.key ? "opacity-30" : "")
+                }
+                style={{ animation: `float-y ${3 + i * 0.4}s ease-in-out infinite` }}
+              >
+                <m.Comp />
+              </div>
+              <span className="text-xs font-medium text-slate-500 transition group-hover:text-fuchsia-400 dark:text-slate-400">
+                {m.label}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* The selected mascot detaches and follows the screen while scrolling. */}
+      <AnimatePresence>
+        {follower && (
+          <motion.button
+            key="mascot-follower"
+            initial={{ opacity: 0, scale: 0.4, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.4, y: 20 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            onClick={() => setFollowing(null)}
+            title="Tap to send me home"
+            className="fixed bottom-5 right-5 z-40 h-16 w-16 drop-shadow-[0_8px_24px_rgba(168,85,247,0.55)] sm:h-20 sm:w-20"
+            style={{ animation: "float-y 3s ease-in-out infinite" }}
+          >
+            <follower.Comp />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

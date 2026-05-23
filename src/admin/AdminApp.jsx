@@ -321,6 +321,28 @@ function ContentPanel() {
         <p className="mt-2 text-xs text-slate-500">Leave a field blank to hide that icon on the site.</p>
       </Group>
 
+      <Group title="Mascot links">
+        <p className="mb-3 text-xs text-slate-500">
+          Optional link for each mascot — visitors who double/triple-tap a mascot get sent here. (Khadush is the
+          secret admin trigger, so it has no link.)
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {[
+            { key: "robot-cat", label: "Doraemon" },
+            { key: "panda", label: "Pandu" },
+            { key: "dog", label: "Pillu" },
+            { key: "jalebi", label: "Jalebi" },
+          ].map(({ key, label }) => (
+            <Field
+              key={key}
+              label={label}
+              value={(content.mascotLinks || {})[key] || ""}
+              onChange={(v) => set({ mascotLinks: { ...(content.mascotLinks || {}), [key]: v } })}
+            />
+          ))}
+        </div>
+      </Group>
+
       <Group title="Projects" onAdd={() => set({ projects: [...content.projects, { title: "New project", desc: "", href: "", tags: [] }] })}>
         <div className="space-y-4">
           {content.projects.map((p, i) => (
