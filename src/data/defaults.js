@@ -12,7 +12,7 @@ export const defaultContent = {
       "Real talk: I can keep stacking degrees and certificates all day... but right now I'm building everything with AI and my own skills — no certificate required. Why memorize syntax when you can vibe? 😎 💙💚❤️💛",
     location: "Punjab, India",
     email: "jnvpbhaashishbharti@gmail.com",
-    phone: "+91 97942 28390",
+    phone: "+91 95652 63445",
     about:
       "Hi, I'm Aashish — officially the Khadoos (the grumpy-looking one 😎) of my little squad. Doraemon, Pandu, Pillu, and Jalebi are my partners in crime: I bring the serious face, they bring the chaos.\n" +
       "Honestly, I'm just a curious guy who can't sit still. The moment something new pops up in tech, my brain goes \"ooh, what's that?\" and I have to learn it. New tool, new model, new trick? Count me in.\n" +

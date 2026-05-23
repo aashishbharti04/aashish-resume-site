@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Send, CheckCircle2, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Send, Loader2 } from "lucide-react";
 
 const FIELD =
   "w-full rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-2 text-sm text-slate-800 dark:text-slate-100 outline-none placeholder:text-slate-400 focus:border-fuchsia-400/50 focus:ring-2 focus:ring-fuchsia-400/30";
@@ -40,10 +41,20 @@ export default function ContactForm({ onSubmit }) {
   if (status === "sent") {
     return (
       <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
-        <CheckCircle2 className="h-10 w-10 text-emerald-400" />
-        <p className="text-base font-semibold text-slate-900 dark:text-white">Message sent!</p>
-        <p className="text-sm text-slate-600 dark:text-slate-300">
-          Thanks for reaching out — I&apos;ll get back to you soon.
+        <motion.span
+          className="text-5xl"
+          style={{ transformOrigin: "70% 70%", display: "inline-block" }}
+          animate={{ rotate: [0, 18, -8, 18, -4, 14, 0] }}
+          transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 0.6 }}
+        >
+          👋
+        </motion.span>
+        <p className="text-base font-semibold text-slate-900 dark:text-white">
+          Thank you for contacting! 🙏
+        </p>
+        <p className="max-w-sm text-sm text-slate-600 dark:text-slate-300">
+          Khadush has officially received your message and will reply shortly — right after he finishes
+          his chai. ☕😎💙
         </p>
         <button
           onClick={() => setStatus("idle")}

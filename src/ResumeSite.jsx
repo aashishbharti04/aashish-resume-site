@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import {
-  Mail, Phone, MapPin, FileDown, ArrowRight,
+  Mail, Phone, MapPin, ArrowRight,
   Briefcase, GraduationCap, Code, Award, ExternalLink
 } from "lucide-react";
 import AnimatedName from "./components/AnimatedName";
@@ -10,8 +10,6 @@ import ContactForm from "./components/ContactForm";
 import { socialMeta } from "./components/SocialIcons";
 import { useContent } from "./hooks/useContent";
 import { submitMessage } from "./lib/data";
-
-const RESUME_URL = "/AAshish.pdf";
 
 const navItems = [
   { id: "about", label: "About" },
@@ -62,7 +60,7 @@ const GlassCard = ({ children, className = "" }) => (
     whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
     className={
       "group relative rounded-2xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 p-5 shadow backdrop-blur-xl " +
-      "before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100 " +
+      "before:pointer-events-none before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100 " +
       className
     }
   >
@@ -458,14 +456,6 @@ export default function ResumeSite() {
               </a>
               <a className="inline-flex items-center gap-2 text-slate-700 hover:text-fuchsia-500 dark:text-slate-200" href={`tel:${profile.phone.replace(/\s/g, "")}`}>
                 <Phone className="h-4 w-4" /> {profile.phone}
-              </a>
-              <a
-                className="inline-flex items-center gap-2 text-fuchsia-600 hover:underline dark:text-fuchsia-200"
-                href={RESUME_URL}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <FileDown className="h-4 w-4" /> Download Resume (PDF)
               </a>
             </div>
             <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-900/10 to-transparent dark:via-white/10" />
