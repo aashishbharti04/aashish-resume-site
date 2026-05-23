@@ -8,6 +8,8 @@ export const defaultContent = {
     tagline:
       "I create with generative AI — content, images, and video — and vibe-code full products using Claude, ChatGPT, Gemini, and Ollama.",
     quote: "I'm doing what I love to do...😎💙",
+    certsNote:
+      "Plot twist: I could frame every one of these certificates on my wall... but these days I just let AI do the heavy lifting while I sip my chai. Why memorize syntax when you can vibe? 😎💙",
     location: "Punjab, India",
     email: "jnvpbhaashishbharti@gmail.com",
     phone: "+91 97942 28390",
@@ -28,11 +30,11 @@ export const defaultContent = {
   ],
 
   skills: [
-    { group: "AI Tools — my superpowers", items: ["Claude", "ChatGPT", "Gemini", "Ollama", "Cursor", "GitHub Copilot"] },
-    { group: "Generative AI", items: ["Content Generation", "Image Generation", "Video Generation", "Prompt Engineering", "LLMs", "RAG"] },
-    { group: "Vibe Coding (my actual job)", items: ["Full-Stack with AI", "AI-Assisted Dev", "Rapid Prototyping", "Spec-to-App"] },
-    { group: "Web Dev (AI does the heavy lifting)", items: ["React", "HTML", "CSS", "Tailwind", "WordPress"] },
-    { group: "Still leveling up", items: ["Python (basics)", "JavaScript (basics)", "Git (basics)"] },
+    { group: "AI Tools — my superpowers", note: "My ride-or-die squad. I talk, they build. 🤝", items: ["Claude", "ChatGPT", "Gemini", "Ollama", "Cursor", "GitHub Copilot"] },
+    { group: "Generative AI", note: "I describe a dream; AI renders it — words, pixels, and frames. ✨", items: ["Content Generation", "Image Generation", "Video Generation", "Prompt Engineering", "LLMs", "RAG"] },
+    { group: "Vibe Coding (my actual job)", note: "Vibes in, full-stack apps out. Zero StackOverflow tears. 😌", items: ["Full-Stack with AI", "AI-Assisted Dev", "Rapid Prototyping", "Spec-to-App"] },
+    { group: "Web Dev (AI does the heavy lifting)", note: "I know enough to point at the screen; AI does the typing. 🫵", items: ["React", "HTML", "CSS", "Tailwind", "WordPress"] },
+    { group: "Still leveling up", note: "Work in progress — like everyone, just honest about it. 📈", items: ["Python (basics)", "JavaScript (basics)", "Git (basics)"] },
   ],
 
   experience: [
@@ -59,25 +61,28 @@ export const defaultContent = {
 
   education: [
     {
-      school: "BBAU, Lucknow — BCA",
-      period: "2022 – 2025",
+      school: "BBAU, Lucknow — BCA (Bachelor of Computer Applications)",
+      period: "2022 – 2025 · 3 years",
       detail:
-        "Three glorious years of BCA — where I figured out that good wifi + curiosity can change a life. Loads of fun, group projects, endless chai, and the moment I fell in love with building things. 🎓",
+        "Three glorious years where I learned that good wifi + curiosity can genuinely change a life. Survived assignments by night, ran on chai by day, and somewhere between group projects and last-minute submissions I fell completely in love with building things. Peak student energy: 10% lectures, 90% \"let's just try and see what happens.\" 🎓",
     },
     {
-      school: "Jawahar Navodaya Vidyalaya (JNV)",
-      period: "2015 – 2022",
+      school: "Jawahar Navodaya Vidyalaya (JNV) — Class 6th to 12th",
+      period: "2015 – 2022 · 7 years",
       detail:
-        "Class 6th to 12th, full hostel life — discipline by day, legendary hostel masti by night. Made friends for life, survived mess food, and learned that the best lessons happen outside the classroom. 🏫",
+        "Seven full years of hostel life — discipline by day, legendary masti by night. From Class 6th to 12th I learned maths, science, and the far more important art of surviving mess food and making friends who feel like family. Lights-out rules, midnight talks, morning PT, and a whole childhood of memories. Honestly, JNV raised me as much as it taught me. 🏫❤️",
     },
   ],
 
   certs: [
-    "Communication Skills For Success — In Business & In Life",
-    "Make a WordPress Website with Elementor",
-    "ChatGPT: Make Money as a New Freelancer",
-    "Introduction to Ethical Hacking",
-    "Become a HTML Hero",
+    "BCA Degree — 3 official years of proof that I can, in fact, computer 🎓",
+    "ADCA — Advanced Diploma in Computer Applications (from back when I typed everything myself)",
+    "ChatGPT: Make Money as a New Freelancer — the prophecy turned out to be real 💸",
+    "Introduction to Ethical Hacking — I promise I only hack for good 🕵️",
+    "Make a WordPress Website with Elementor — dragged, dropped, conquered",
+    "Become a HTML Hero — cape sadly not included",
+    "Communication Skills for Success — so I can explain to humans what the AI just said",
+    "...and a few more quietly gathering digital dust 🏆",
   ],
 
   projects: [

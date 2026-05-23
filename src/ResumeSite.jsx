@@ -56,6 +56,7 @@ const GlassCard = ({ children, className = "" }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.5 }}
+    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
     className={
       "group relative rounded-2xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 p-5 shadow backdrop-blur-xl " +
       "before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100 " +
@@ -69,8 +70,8 @@ const GlassCard = ({ children, className = "" }) => (
 
 const SkillChip = ({ text }) => (
   <motion.span
-    whileHover={{ y: -2 }}
-    className="rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1 text-sm text-slate-700 dark:text-slate-200 shadow-sm"
+    whileHover={{ y: -2, scale: 1.1 }}
+    className="cursor-default rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1 text-sm text-slate-700 dark:text-slate-200 shadow-sm"
   >
     {text}
   </motion.span>
@@ -339,12 +340,13 @@ export default function ResumeSite() {
       {/* SKILLS */}
       <Section id="skills" title="Skills" kicker="what i use">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {skills.map(({ group, items }) => (
+          {skills.map(({ group, note, items }) => (
             <GlassCard key={group}>
-              <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-white">
+              <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-white">
                 <Code className="h-4 w-4" /> {group}
               </h3>
-              <div className="flex flex-wrap gap-2">
+              {note && <p className="mb-3 mt-1 text-xs italic text-slate-500 dark:text-slate-400">{note}</p>}
+              <div className="mt-3 flex flex-wrap gap-2">
                 {items.map((s) => (
                   <SkillChip key={s} text={s} />
                 ))}
@@ -391,18 +393,23 @@ export default function ResumeSite() {
       </Section>
 
       {/* CERTIFICATIONS */}
-      <Section id="certs" title="Certifications" kicker="proof">
+      <Section id="certs" title="Certifications" kicker="proof (and chai)">
         <GlassCard>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             {certs.map((c) => (
-              <span
+              <div
                 key={c}
-                className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-sm text-emerald-700 dark:border-emerald-400/20 dark:text-emerald-100"
+                className="flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 transition hover:scale-[1.02] dark:border-emerald-400/20 dark:text-emerald-100"
               >
-                <Award className="h-4 w-4" /> {c}
-              </span>
+                <Award className="mt-0.5 h-4 w-4 shrink-0" /> <span>{c}</span>
+              </div>
             ))}
           </div>
+          {profile.certsNote && (
+            <p className="mt-4 text-sm italic leading-relaxed text-slate-600 dark:text-slate-300">
+              {profile.certsNote}
+            </p>
+          )}
         </GlassCard>
       </Section>
 

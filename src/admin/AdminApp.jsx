@@ -315,6 +315,9 @@ function ContentPanel() {
             <div key={i} className="rounded-xl border border-white/10 p-4">
               <Field label="Group" value={g.group} onChange={(v) => updateItem(set, content, "skills", i, { group: v })} />
               <div className="mt-3">
+                <Field label="Funny note" value={g.note || ""} onChange={(v) => updateItem(set, content, "skills", i, { note: v })} />
+              </div>
+              <div className="mt-3">
                 <Field label="Items (comma-separated)" value={g.items.join(", ")} onChange={(v) => updateItem(set, content, "skills", i, { items: splitCsv(v) })} />
               </div>
               <RemoveBtn onClick={() => set({ skills: content.skills.filter((_, j) => j !== i) })} />
@@ -364,6 +367,14 @@ function ContentPanel() {
           value={content.certs.join("\n")}
           onChange={(v) => set({ certs: splitLines(v) })}
         />
+        <div className="mt-3">
+          <Field
+            label="Funny closing note"
+            textarea
+            value={content.profile.certsNote || ""}
+            onChange={(v) => setProfile("certsNote", v)}
+          />
+        </div>
       </Group>
 
       {/* Sticky save bar */}
