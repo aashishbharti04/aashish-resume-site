@@ -1,9 +1,15 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import {
-  Mail, Phone, Github, Linkedin, MapPin, FileDown, ArrowRight,
-  Briefcase, GraduationCap, Code, Award, ExternalLink
+  Mail, Phone, MapPin, FileDown, ArrowRight,
+  Briefcase, GraduationCap, Code, Award, ExternalLink, Lock
 } from "lucide-react";
+import AnimatedName from "./components/AnimatedName";
+import MascotBand from "./components/Mascots";
+import ContactForm from "./components/ContactForm";
+import { socialMeta } from "./components/SocialIcons";
+import { useContent } from "./hooks/useContent";
+import { submitMessage } from "./lib/data";
 
 const RESUME_URL = "/AAshish.pdf";
 
@@ -33,7 +39,7 @@ const Section = ({ id, title, kicker, children }) => (
             {kicker}
           </p>
         )}
-        <h2 className="mt-1 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <h2 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">
           <span className="bg-gradient-to-r from-fuchsia-600 via-violet-600 to-sky-600 dark:from-fuchsia-300 dark:via-violet-300 dark:to-sky-300 bg-clip-text text-transparent">
             {title}
           </span>
@@ -70,6 +76,32 @@ const SkillChip = ({ text }) => (
   </motion.span>
 );
 
+const CARD_HEADING = "text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2";
+
+// Row of social icon links built from editable content.
+function SocialRow({ items = [], className = "" }) {
+  return (
+    <div className={"flex flex-wrap items-center gap-2 " + className}>
+      {items.filter((s) => s.url).map((s) => {
+        const { label, Icon } = socialMeta(s.platform);
+        return (
+          <a
+            key={s.platform}
+            href={s.url}
+            target="_blank"
+            rel="noreferrer noopener"
+            title={label}
+            aria-label={label}
+            className="inline-grid h-9 w-9 place-items-center rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 text-slate-700 transition hover:-translate-y-0.5 hover:text-fuchsia-500 dark:text-slate-200 dark:hover:text-fuchsia-300"
+          >
+            <Icon className="h-4 w-4" />
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
 function useActiveSection() {
   const [active, setActive] = useState(navItems[0].id);
   useEffect(() => {
@@ -90,7 +122,6 @@ function useActiveSection() {
   return active;
 }
 
-// Magnetic button effect
 const Magnetic = ({ children, strength = 30, className = "" }) => {
   const ref = useRef(null);
   const x = useMotionValue(0);
@@ -99,29 +130,20 @@ const Magnetic = ({ children, strength = 30, className = "" }) => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const relX = e.clientX - rect.left - rect.width / 2;
-    const relY = e.clientY - rect.top - rect.height / 2;
-    x.set(relX / strength);
-    y.set(relY / strength);
+    x.set((e.clientX - rect.left - rect.width / 2) / strength);
+    y.set((e.clientY - rect.top - rect.height / 2) / strength);
   }
   function onMouseLeave() {
     x.set(0);
     y.set(0);
   }
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      style={{ x, y }}
-      className={className}
-    >
+    <motion.div ref={ref} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} style={{ x, y }} className={className}>
       {children}
     </motion.div>
   );
 };
 
-// Tilt card effect
 const Tilt = ({ children, className = "" }) => {
   const ref = useRef(null);
   const x = useMotionValue(0);
@@ -130,10 +152,8 @@ const Tilt = ({ children, className = "" }) => {
   const rotateY = useTransform(x, [-15, 15], [-10, 10]);
   function onMouseMove(e) {
     const rect = ref.current.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-    x.set((px - 0.5) * 30);
-    y.set((py - 0.5) * 30);
+    x.set(((e.clientX - rect.left) / rect.width - 0.5) * 30);
+    y.set(((e.clientY - rect.top) / rect.height - 0.5) * 30);
   }
   function onMouseLeave() {
     x.set(0);
@@ -152,7 +172,6 @@ const Tilt = ({ children, className = "" }) => {
   );
 };
 
-// Scroll progress bar
 function ScrollProgress() {
   const [p, setP] = useState(0);
   useEffect(() => {
@@ -167,23 +186,18 @@ function ScrollProgress() {
   }, []);
   return (
     <div className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
-      <div
-        className="h-full bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500"
-        style={{ width: `${p}%` }}
-      />
+      <div className="h-full bg-gradient-to-r from-fuchsia-500 via-violet-500 to-sky-500" style={{ width: `${p}%` }} />
     </div>
   );
 }
-// Cursor glow effect
+
 function CursorGlow() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
-
   useEffect(() => {
     const handler = (e) => setPos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handler);
     return () => window.removeEventListener("mousemove", handler);
   }, []);
-
   return (
     <motion.div
       className="pointer-events-none fixed inset-0 z-[5]"
@@ -200,26 +214,12 @@ function CursorGlow() {
   );
 }
 
-
-
-
-
 // -------------------- MAIN PAGE --------------------
 export default function ResumeSite() {
   const active = useActiveSection();
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-
-  const skills = useMemo(
-    () => ({
-      Programming: ["C", "C++", "Java", "Python"],
-      "Web Development": ["HTML", "CSS", "JavaScript", "Bootstrap", "WordPress"],
-      "Data Analysis": ["Python (Pandas, NumPy)", "MS Excel", "Power BI"],
-      "Software Development": ["OOP", "Data Structures", "Software Engineering"],
-      "Version Control": ["Git", "GitHub"],
-    }),
-    []
-  );
+  const { content } = useContent();
+  const { profile, socials, skills, experience, education, certs, projects } = content;
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div className="min-h-screen bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100 selection:bg-fuchsia-500/40">
@@ -230,11 +230,9 @@ export default function ResumeSite() {
       {/* Navbar */}
       <header className="sticky top-0 z-50 border-b border-slate-900/10 dark:border-white/10 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold tracking-tight">
-              Aashish Bharti
-            </span>
-          </div>
+          <span className="text-base font-bold tracking-tight">
+            <AnimatedName name={profile.name} />
+          </span>
           <nav className="hidden gap-1 sm:flex">
             {navItems.map((n) => (
               <button
@@ -249,71 +247,54 @@ export default function ResumeSite() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-  <a
-    href={RESUME_URL}
-    target="_blank"
-    rel="noreferrer noopener"
-    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-fuchsia-600 to-sky-600 px-3 py-1.5 text-sm font-medium text-white shadow hover:brightness-110"
-  >
-    <FileDown className="h-4 w-4" /> Download
-  </a>
-  <ThemeToggle /> {/* 🌗 Dark/Light switch */}
-</div>
-
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-fuchsia-600 to-sky-600 px-3 py-1.5 text-sm font-medium text-white shadow hover:brightness-110"
+            >
+              <FileDown className="h-4 w-4" /> Download
+            </a>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden pb-14 pt-16">
+      <section className="relative overflow-hidden pb-10 pt-16">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 sm:grid-cols-2">
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1 text-[13px] text-slate-600 dark:text-slate-300">
-                <MapPin className="h-3.5 w-3.5" /> Punjab, India
+                <MapPin className="h-3.5 w-3.5" /> {profile.location}
               </div>
-              <h1 className="text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-                <span className="bg-[linear-gradient(110deg,#0f172a_0%,#7c3aed_35%,#2563eb_65%,#0891b2_100%)] dark:bg-[linear-gradient(110deg,#ffffff_0%,#c084fc_30%,#60a5fa_60%,#22d3ee_100%)] bg-clip-text text-transparent">
-                  Generative AI Designer
-                </span>
-                <br /> & Full-Stack-leaning Web Developer
+              <h1 className="text-balance text-5xl font-extrabold leading-tight tracking-tight sm:text-7xl">
+                <AnimatedName name={profile.name} />
               </h1>
+              <p className="mt-3 text-lg font-semibold text-slate-700 dark:text-slate-200 sm:text-xl">
+                {profile.role}
+              </p>
               <p className="mt-4 max-w-xl text-slate-600 dark:text-slate-300">
-                BCA graduate crafting high-polish, animated interfaces and reliable
-                code. I bring UX clarity, performance, and motion to your product.
+                BCA graduate crafting high-polish, animated interfaces and reliable code. I bring UX
+                clarity, performance, and motion to your product.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Magnetic>
                   <button
-                    onClick={() =>
-                      document
-                        .getElementById("contact")
-                        ?.scrollIntoView({ behavior: "smooth" })
-                    }
+                    onClick={() => scrollTo("contact")}
                     className="group inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/10 px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-white/90 shadow transition hover:-translate-y-0.5 hover:bg-slate-900/10 dark:hover:bg-white/15"
                   >
-                    Contact Me{" "}
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                    Contact Me <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                   </button>
                 </Magnetic>
-                <a
-                  href="https://aashishbharti04.github.io/Codsoft-Personal-Portfolio/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-center gap-2 rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-5 py-2.5 text-sm font-medium text-fuchsia-100 shadow transition hover:brightness-110"
-                >
-                  View Portfolio <ExternalLink className="h-4 w-4" />
-                </a>
+                <SocialRow items={socials} />
               </div>
               <div className="mt-5 flex flex-wrap gap-4 text-sm text-slate-600 dark:text-slate-300">
                 <span className="inline-flex items-center gap-2">
-                  <Mail className="h-4 w-4" /> jnvpbhaashishbharti@gmail.com
+                  <Mail className="h-4 w-4" /> {profile.email}
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Phone className="h-4 w-4" /> +91 97942 28390
+                  <Phone className="h-4 w-4" /> {profile.phone}
                 </span>
               </div>
             </motion.div>
@@ -324,98 +305,41 @@ export default function ResumeSite() {
               <div className="relative isolate overflow-hidden rounded-2xl">
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-fuchsia-500/20 to-sky-500/20 blur-xl" />
                 <div className="relative z-10 space-y-5 p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-fuchsia-600 to-sky-600 shadow" />
-                    <div>
-                      <p className="text-sm text-slate-600 dark:text-slate-300">Hello, I’m</p>
-                      <p className="text-xl font-semibold">Aashish Bharti</p>
-                    </div>
+                  <div>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">Hello, I&apos;m</p>
+                    <p className="text-2xl font-bold">
+                      <AnimatedName name={profile.name} />
+                    </p>
                   </div>
-                  <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                  <div className="flex flex-wrap items-center gap-3 text-sm">
-                    <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                      href="mailto:jnvpbhaashishbharti@gmail.com"
-                    >
-                      <Mail className="h-4 w-4" /> Email
-                    </a>
-                    <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                      href="tel:+919794228390"
-                    >
-                      <Phone className="h-4 w-4" /> Call
-                    </a>
-                    <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      href="https://www.linkedin.com/in/aashana1012"
-                    >
-                      <Linkedin className="h-4 w-4" /> LinkedIn
-                    </a>
-                    <a
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      href="https://github.com/aashishbharti04/"
-                    >
-                      <Github className="h-4 w-4" /> GitHub
-                    </a>
-                  </div>
+                  <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-900/10 to-transparent dark:via-white/10" />
+                  <SocialRow items={socials} />
                 </div>
               </div>
             </GlassCard>
           </Tilt>
         </div>
-
-        {/* Skills marquee */}
-        <div className="mt-12 overflow-hidden py-2">
-          <div className="flex w-max animate-[marquee_20s_linear_infinite] whitespace-nowrap text-sm text-slate-600 dark:text-slate-300 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            {[
-              ...[
-                "C","C++","Java","Python","HTML","CSS","JavaScript",
-                "Bootstrap","WordPress","Pandas","NumPy",
-                "Excel","Power BI","Git","GitHub"
-              ],
-              ...[
-                "C","C++","Java","Python","HTML","CSS","JavaScript",
-                "Bootstrap","WordPress","Pandas","NumPy",
-                "Excel","Power BI","Git","GitHub"
-              ],
-            ].map((s, i) => (
-              <span
-                key={i}
-                className="mx-4 inline-flex items-center gap-2"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-fuchsia-400" /> {s}
-              </span>
-            ))}
-          </div>
-        </div>
       </section>
+
+      {/* Mascots */}
+      <MascotBand />
 
       {/* ABOUT */}
       <Section id="about" title="About" kicker="who i am">
         <GlassCard>
-          <p className="text-slate-700 dark:text-slate-200">
-            I design and build expressive, performant web experiences. My sweet
-            spot is marrying <span className="text-fuchsia-300">clean UX</span>{" "}
-            with <span className="text-sky-300">solid engineering</span>, using
-            delightful motion to guide attention without getting in the way.
-          </p>
+          <p className="text-slate-700 dark:text-slate-200">{profile.about}</p>
         </GlassCard>
       </Section>
 
       {/* SKILLS */}
       <Section id="skills" title="Skills" kicker="what i use">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(skills).map(([group, list]) => (
+          {skills.map(({ group, items }) => (
             <GlassCard key={group}>
               <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-white">
                 <Code className="h-4 w-4" /> {group}
               </h3>
               <div className="flex flex-wrap gap-2">
-                {list.map((s) => (
+                {items.map((s) => (
                   <SkillChip key={s} text={s} />
                 ))}
               </div>
@@ -427,57 +351,33 @@ export default function ResumeSite() {
       {/* EXPERIENCE */}
       <Section id="experience" title="Experience" kicker="where i've worked">
         <div className="grid gap-4 md:grid-cols-2">
-          <GlassCard>
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
-              <Briefcase className="h-4 w-4" /> COSMIC365.AI — Associate
-            </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Aug 2024 – Oct 2024 · Lucknow, India
-            </p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
-              <li>Shipped AI-driven prototypes and elevated UI polish with motion.</li>
-              <li>Collaborated cross-functionally; emphasized responsiveness & clarity.</li>
-            </ul>
-          </GlassCard>
-
-          <GlassCard>
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
-              <Briefcase className="h-4 w-4" /> BBAU — BCA Student
-            </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Jul 2022 – Jun 2025 · Lucknow, India</p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
-              <li>Built dynamic websites; analyzed real-world datasets.</li>
-              <li>Strong base in OOP, DSA, and software engineering practices.</li>
-            </ul>
-          </GlassCard>
-
-          <GlassCard>
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
-              <Briefcase className="h-4 w-4" /> JNV — Computer Science
-            </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Aug 2015 – Jun 2022 · Pratapgarh, India</p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
-              <li>Strengthened fundamentals in programming and problem solving.</li>
-            </ul>
-          </GlassCard>
+          {experience.map((e) => (
+            <GlassCard key={e.org}>
+              <h3 className={CARD_HEADING}>
+                <Briefcase className="h-4 w-4" /> {e.org}
+              </h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{e.period}</p>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                {e.points.map((pt, i) => (
+                  <li key={i}>{pt}</li>
+                ))}
+              </ul>
+            </GlassCard>
+          ))}
         </div>
       </Section>
 
       {/* EDUCATION */}
       <Section id="education" title="Education" kicker="learning">
         <div className="grid gap-4 md:grid-cols-2">
-          <GlassCard>
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
-              <GraduationCap className="h-4 w-4" /> BBAU, Lucknow — BCA
-            </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">2022 – 2025</p>
-          </GlassCard>
-          <GlassCard>
-            <h3 className="text-base font-semibold text-white flex items-center gap-2">
-              <GraduationCap className="h-4 w-4" /> Jawahar Navodaya Vidyalaya (JNV)
-            </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">2015 – 2022</p>
-          </GlassCard>
+          {education.map((ed) => (
+            <GlassCard key={ed.school}>
+              <h3 className={CARD_HEADING}>
+                <GraduationCap className="h-4 w-4" /> {ed.school}
+              </h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{ed.period}</p>
+            </GlassCard>
+          ))}
         </div>
       </Section>
 
@@ -485,16 +385,10 @@ export default function ResumeSite() {
       <Section id="certs" title="Certifications" kicker="proof">
         <GlassCard>
           <div className="flex flex-wrap gap-2">
-            {[
-              "Communication Skills For Success — In Business & In Life",
-              "Make a WordPress Website with Elementor",
-              "ChatGPT: Make Money as a New Freelancer",
-              "Introduction to Ethical Hacking",
-              "Become a HTML Hero",
-            ].map((c) => (
+            {certs.map((c) => (
               <span
                 key={c}
-                className="inline-flex items-center gap-2 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-sm text-emerald-100"
+                className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-sm text-emerald-700 dark:border-emerald-400/20 dark:text-emerald-100"
               >
                 <Award className="h-4 w-4" /> {c}
               </span>
@@ -506,29 +400,30 @@ export default function ResumeSite() {
       {/* PROJECTS */}
       <Section id="projects" title="Projects" kicker="selected work">
         <div className="grid gap-6 md:grid-cols-2">
-          {[
-            {
-              title: "Portfolio Site",
-              desc: "Static portfolio with custom animations and micro-interactions.",
-              href: "https://aashishbharti04.github.io/Codsoft-Personal-Portfolio/",
-            },
-            {
-              title: "Resume Website (this)",
-              desc: "Dark neon theme, animated hero, tilt cards, marquee skills.",
-              href: "#",
-            },
-          ].map((p) => (
+          {projects.map((p) => (
             <Tilt key={p.title}>
               <GlassCard className="h-full">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{p.title}</h3>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{p.desc}</p>
+                {p.tags?.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-slate-900/10 bg-slate-900/5 px-2.5 py-0.5 text-xs text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 <a
                   href={p.href}
-                  target={p.href.startsWith("http") ? "_blank" : undefined}
+                  target={p.href?.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer noopener"
-                  className="mt-4 inline-flex items-center gap-2 text-fuchsia-200 hover:underline"
+                  className="mt-4 inline-flex items-center gap-2 text-fuchsia-600 hover:underline dark:text-fuchsia-200"
                 >
-                  View <ExternalLink className="h-4 w-4" />
+                  Visit live site <ExternalLink className="h-4 w-4" />
                 </a>
               </GlassCard>
             </Tilt>
@@ -540,67 +435,30 @@ export default function ResumeSite() {
       <Section id="contact" title="Contact" kicker="say hi">
         <div className="grid gap-4 md:grid-cols-3">
           <GlassCard className="md:col-span-2">
-            <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Work with me</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              Open to internships and full-time roles in front-end, web, or
-              data-focused teams. Email or call is fastest.
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
-              <a
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                href="mailto:jnvpbhaashishbharti@gmail.com"
-              >
-                <Mail className="h-4 w-4" /> jnvpbhaashishbharti@gmail.com
-              </a>
-              <a
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                href="tel:+919794228390"
-              >
-                <Phone className="h-4 w-4" /> +91 97942 28390
-              </a>
-              <a
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                target="_blank"
-                rel="noreferrer noopener"
-                href="https://www.linkedin.com/in/aashana1012"
-              >
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-              <a
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 shadow-sm hover:bg-white/10"
-                target="_blank"
-                rel="noreferrer noopener"
-                href="https://github.com/aashishbharti04/"
-              >
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-            </div>
+            <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Send me a message</h3>
+            <ContactForm onSubmit={submitMessage} />
           </GlassCard>
 
           <GlassCard>
-            <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Quick links</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  className="group inline-flex items-center gap-2 text-fuchsia-200 hover:underline"
-                  href={RESUME_URL}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <FileDown className="h-4 w-4" /> Download Resume (PDF)
-                </a>
-              </li>
-              <li>
-                <a
-                  className="group inline-flex items-center gap-2 text-fuchsia-200 hover:underline"
-                  href="https://aashishbharti04.github.io/Codsoft-Personal-Portfolio/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <ExternalLink className="h-4 w-4" /> Personal Portfolio
-                </a>
-              </li>
-            </ul>
+            <h3 className="mb-3 text-base font-semibold text-slate-900 dark:text-white">Reach me</h3>
+            <div className="flex flex-col gap-2 text-sm">
+              <a className="inline-flex items-center gap-2 text-slate-700 hover:text-fuchsia-500 dark:text-slate-200" href={`mailto:${profile.email}`}>
+                <Mail className="h-4 w-4" /> {profile.email}
+              </a>
+              <a className="inline-flex items-center gap-2 text-slate-700 hover:text-fuchsia-500 dark:text-slate-200" href={`tel:${profile.phone.replace(/\s/g, "")}`}>
+                <Phone className="h-4 w-4" /> {profile.phone}
+              </a>
+              <a
+                className="inline-flex items-center gap-2 text-fuchsia-600 hover:underline dark:text-fuchsia-200"
+                href={RESUME_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <FileDown className="h-4 w-4" /> Download Resume (PDF)
+              </a>
+            </div>
+            <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-slate-900/10 to-transparent dark:via-white/10" />
+            <SocialRow items={socials} />
           </GlassCard>
         </div>
       </Section>
@@ -608,23 +466,15 @@ export default function ResumeSite() {
       {/* FOOTER */}
       <footer className="border-t border-slate-900/10 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 py-8 text-sm text-slate-500 dark:text-slate-400 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4">
-          <p>© {new Date().getFullYear()} Aashish Bharti. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
           <div className="flex items-center gap-4">
+            <SocialRow items={socials} />
             <a
-              className="inline-flex items-center gap-2 hover:underline"
-              href="https://www.linkedin.com/in/aashana1012"
-              target="_blank"
-              rel="noreferrer noopener"
+              href="#/admin"
+              className="inline-flex items-center gap-1.5 text-slate-400 transition hover:text-fuchsia-400"
+              title="Admin login"
             >
-              <Linkedin className="h-4 w-4" /> LinkedIn
-            </a>
-            <a
-              className="inline-flex items-center gap-2 hover:underline"
-              href="https://github.com/aashishbharti04"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <Github className="h-4 w-4" /> GitHub
+              <Lock className="h-3.5 w-3.5" /> Admin
             </a>
           </div>
         </div>
@@ -663,27 +513,20 @@ function BgAurora() {
 
 function ThemeToggle() {
   const [dark, setDark] = useState(true);
-
   useEffect(() => {
     const cls = document.documentElement.classList;
-    if (dark) {
-      cls.add("dark");
-    } else {
-      cls.remove("dark");
-    }
+    if (dark) cls.add("dark");
+    else cls.remove("dark");
   }, [dark]);
-
   return (
     <button
       onClick={() => setDark((d) => !d)}
-      className="inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-200 shadow hover:bg-white/10"
+      className="inline-flex items-center gap-2 rounded-full border border-slate-900/10 dark:border-white/10 bg-slate-900/5 dark:bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-200 shadow hover:bg-slate-900/10 dark:hover:bg-white/10"
       title="Toggle theme"
     >
       <span
         className={`h-4 w-4 rounded-full ${
-          dark
-            ? "bg-gradient-to-br from-fuchsia-500 to-sky-500"
-            : "bg-gradient-to-br from-yellow-400 to-orange-500"
+          dark ? "bg-gradient-to-br from-fuchsia-500 to-sky-500" : "bg-gradient-to-br from-yellow-400 to-orange-500"
         }`}
       />
       {dark ? "Dark" : "Light"}
