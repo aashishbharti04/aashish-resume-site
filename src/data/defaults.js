@@ -167,5 +167,11 @@ export const defaultContent = {
       href: "https://aashishbharti04.github.io/jobhunter/",
       tags: ["Job Search", "Kanban", "Open Source"],
     },
+    {
+      title: "Pglu AI Assistant",
+      desc: "Privacy-first, plugin-based desktop voice/text assistant (Jarvis-style) in pure Python — open apps, search, answer questions, system info & timers. Open source.",
+      href: "https://github.com/aashishbharti04/pglu-ai-assistant",
+      tags: ["Assistant", "Python", "Open Source"],
+    },
   ],
 };
