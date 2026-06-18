@@ -119,5 +119,47 @@ export const defaultContent = {
       href: "https://myseoinsights.com/AashRow/",
       tags: ["SEO", "Analytics", "Tools"],
     },
+    {
+      title: "BachatBook",
+      desc: "Bilingual (English & हिन्दी) personal-finance hub: money-saving ideas, finance book library, SIP/budget calculators, savings challenges & glossary. Open source.",
+      href: "https://aashishbharti04.github.io/bachatbook/",
+      tags: ["Finance", "Bilingual", "Open Source"],
+    },
+    {
+      title: "MoneyMap",
+      desc: "Private, local-first personal-finance tracker — income, expenses, budgets & visual insights, 100% in your browser. Open source.",
+      href: "https://aashishbharti04.github.io/moneymap/",
+      tags: ["Finance", "Local-first", "Open Source"],
+    },
+    {
+      title: "WorldClock",
+      desc: "World time zones & meeting planner — compare cities and find the best overlapping hours to meet across time zones. Open source.",
+      href: "https://aashishbharti04.github.io/worldclock/",
+      tags: ["Time Zones", "Productivity", "Open Source"],
+    },
+    {
+      title: "CodeSnap",
+      desc: "Turn code into beautiful, shareable images — syntax themes, gradients, and one-click PNG export, fully client-side. Open source.",
+      href: "https://aashishbharti04.github.io/codesnap/",
+      tags: ["Tool", "Images", "Open Source"],
+    },
+    {
+      title: "DevToolbox",
+      desc: "Offline developer utility belt: JSON, JWT, Base64, regex, hash, UUID, diff, cron & more — 12 tools, all in your browser. Open source.",
+      href: "https://aashishbharti04.github.io/devtoolbox/",
+      tags: ["Dev Tools", "Offline", "Open Source"],
+    },
+    {
+      title: "ScholarDesk",
+      desc: "Local-first PhD research command center — track papers, deadlines & writing progress, privately in your browser. Open source.",
+      href: "https://aashishbharti04.github.io/scholardesk/",
+      tags: ["Local-first", "Research", "Open Source"],
+    },
+    {
+      title: "PhishGuard",
+      desc: "Explainable phishing-URL detector — in-browser machine learning with per-prediction explanations. Open source.",
+      href: "https://aashishbharti04.github.io/phishguard/",
+      tags: ["ML", "Security", "Open Source"],
+    },
   ],
 };
