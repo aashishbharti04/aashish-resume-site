@@ -161,5 +161,11 @@ export const defaultContent = {
       href: "https://aashishbharti04.github.io/phishguard/",
       tags: ["ML", "Security", "Open Source"],
     },
+    {
+      title: "JobHunter",
+      desc: "Local-first job-application tracker — drag-and-drop Kanban pipeline, follow-up reminders, and a stats dashboard, 100% in your browser. Open source.",
+      href: "https://aashishbharti04.github.io/jobhunter/",
+      tags: ["Job Search", "Kanban", "Open Source"],
+    },
   ],
 };
