@@ -120,6 +120,18 @@ export const defaultContent = {
       tags: ["SEO", "Analytics", "Tools"],
     },
     {
+      title: "SecKit",
+      desc: "In-browser cybersecurity toolkit — password strength, generator, breach check (k-anonymity), 2FA/TOTP codes, AES-256 encryption & hashing. Real Web Crypto, nothing uploaded. Open source.",
+      href: "https://aashishbharti04.github.io/seckit/",
+      tags: ["Security", "Web Crypto", "Privacy", "Open Source"],
+    },
+    {
+      title: "Banner Studio",
+      desc: "Generate unique GMB & social-media banners in your browser — logo/photo, ratings, custom colors, 5 sizes, 2× PNG export. 100% offline. Open source.",
+      href: "https://aashishbharti04.github.io/banner-studio/",
+      tags: ["Design", "Marketing", "Canvas", "Open Source"],
+    },
+    {
       title: "OfficeHQ",
       desc: "All-in-one local-first office manager — team directory, attendance (clock in/out), leave approvals, task assignments & announcements, 100% in your browser. Open source.",
       href: "https://aashishbharti04.github.io/officehq/",
