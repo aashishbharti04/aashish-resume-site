@@ -120,6 +120,12 @@ export const defaultContent = {
       tags: ["SEO", "Analytics", "Tools"],
     },
     {
+      title: "OfficeHQ",
+      desc: "All-in-one local-first office manager — team directory, attendance (clock in/out), leave approvals, task assignments & announcements, 100% in your browser. Open source.",
+      href: "https://aashishbharti04.github.io/officehq/",
+      tags: ["Office", "HR", "Local-first", "Open Source"],
+    },
+    {
       title: "BachatBook",
       desc: "Bilingual (English & हिन्दी) personal-finance hub: money-saving ideas, finance book library, SIP/budget calculators, savings challenges & glossary. Open source.",
       href: "https://aashishbharti04.github.io/bachatbook/",
